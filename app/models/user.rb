@@ -1,10 +1,11 @@
 class User < ActiveRecord::Base
   has_many :rides
   has_many :attractions, through: :rides
+  has_secure_password #bcrypt
 
-  validates :password, presence: true
+  validates :password, presence: true, :on => :create
+  validates :password_digest, presence: true, :on => :update
 
-  has_secure_password
 
   def mood
       if self.nausea < self.happiness
